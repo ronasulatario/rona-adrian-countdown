@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rona & Adrian — Countdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:transparent}
+  body{font-family:"Cormorant Garamond",serif;color:#566037}
+  .banner{
+    width:100%; min-height:190px; padding:22px 34px;
+    background:
+      radial-gradient(circle at 8% 20%, rgba(188,202,157,.28), transparent 28%),
+      radial-gradient(circle at 94% 78%, rgba(188,202,157,.25), transparent 30%),
+      #fafaf0;
+    border:2px solid #59643a;
+    border-radius:18px;
+    display:flex; align-items:center; gap:34px;
+  }
+  .title{flex:0 0 38%; text-align:center}
+  .small{font-size:18px;letter-spacing:3px;text-transform:uppercase;margin-bottom:0}
+  .script{font-family:"Great Vibes",cursive;font-size:58px;line-height:1.05;margin:2px 0 10px}
+  .flourish{font-size:25px;letter-spacing:3px}
+  .timer{flex:1;display:grid;grid-template-columns:repeat(4,1fr);align-items:center}
+  .unit{text-align:center;border-left:1px solid rgba(86,96,55,.55);padding:0 12px}
+  .unit:first-child{border-left:0}
+  .number{font-size:56px;line-height:1;font-weight:500}
+  .label{font-size:16px;letter-spacing:2px;text-transform:uppercase;margin-top:8px}
+  .tagline{position:absolute;opacity:0;pointer-events:none}
+  @media(max-width:650px){
+    .banner{min-height:150px;padding:16px 12px;gap:12px;border-radius:14px}
+    .title{flex-basis:35%}
+    .small{font-size:11px;letter-spacing:1.6px}
+    .script{font-size:36px}
+    .flourish{font-size:16px}
+    .unit{padding:0 5px}
+    .number{font-size:34px}
+    .label{font-size:10px;letter-spacing:1px;margin-top:5px}
+  }
+</style>
+</head>
+<body>
+<div class="banner" aria-label="Wedding countdown">
+  <div class="title">
+    <div class="small">Counting Down To</div>
+    <div class="script">Our Forever</div>
+    <div class="flourish">♡ ─────── ♡</div>
+  </div>
+  <div class="timer">
+    <div class="unit"><div class="number" id="days">0</div><div class="label">Days</div></div>
+    <div class="unit"><div class="number" id="hours">00</div><div class="label">Hours</div></div>
+    <div class="unit"><div class="number" id="minutes">00</div><div class="label">Minutes</div></div>
+    <div class="unit"><div class="number" id="seconds">00</div><div class="label">Seconds</div></div>
+  </div>
+  <div class="tagline">Same Day, A Lifetime Ahead</div>
+</div>
+<script>
+const target = new Date("2026-12-26T15:30:00+08:00").getTime();
+function pad(n){return String(n).padStart(2,"0")}
+function tick(){
+  let diff = target - Date.now();
+  if(diff <= 0){
+    document.getElementById("days").textContent="0";
+    document.getElementById("hours").textContent="00";
+    document.getElementById("minutes").textContent="00";
+    document.getElementById("seconds").textContent="00";
+    return;
+  }
+  const s = Math.floor(diff/1000);
+  const d = Math.floor(s/86400);
+  const h = Math.floor((s%86400)/3600);
+  const m = Math.floor((s%3600)/60);
+  const sec = s%60;
+  document.getElementById("days").textContent=d;
+  document.getElementById("hours").textContent=pad(h);
+  document.getElementById("minutes").textContent=pad(m);
+  document.getElementById("seconds").textContent=pad(sec);
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
